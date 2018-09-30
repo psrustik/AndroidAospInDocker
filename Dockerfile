@@ -3,7 +3,7 @@ FROM ubuntu:14.04
 ENV http_proxy ${http_proxy:-}
 ENV https_proxy ${https_proxy:-}
 ENV no_proxy ${no_proxy:-}
-ENV OUT_DIR_COMMON_BASE /temp/out/dist
+######ENV OUT_DIR_COMMON_BASE /temp/out/dist
 ENV USER root
 
 RUN apt-get -qq update
@@ -18,8 +18,14 @@ RUN apt-get update && \
         flex g++-multilib gcc-multilib git gnupg gperf lib32ncurses5-dev \
         lib32readline-gplv2-dev lib32z1-dev libesd0-dev libncurses5-dev \
         libsdl1.2-dev libwxgtk2.8-dev libxml2-utils lzop \
-        openjdk-7-jdk \
-        pngcrush schedtool xsltproc zip zlib1g-dev
+        pngcrush schedtool xsltproc zip zlib1g-dev software-properties-common
+
+
+RUN add-apt-repository ppa:openjdk-r/ppa -y && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends openjdk-8-jdk && \
+    rm -rf /var/lib/apt/lists/*
+
 
 ADD https://commondatastorage.googleapis.com/git-repo-downloads/repo /usr/local/bin/
 RUN chmod 755 /usr/local/bin/*
@@ -32,9 +38,12 @@ RUN curl --create-dirs -sSLo /usr/local/bin/dumb-init https://github.com/Yelp/du
 RUN chmod +x /usr/local/bin/dumb-init
 
 # Extras that android-x86.org and android-ia need
-RUN apt-get update && apt-get install -y gettext python-libxml2 yasm bc
-RUN apt-get update && apt-get install -y squashfs-tools genisoimage dosfstools mtools
+RUN apt-get install -y gettext python-libxml2 yasm bc
+RUN apt-get install -y squashfs-tools genisoimage dosfstools mtools
+RUN apt-get install -y gcc-aarch64-linux-gnu
+
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 
 # setting up CCACHE
 RUN echo "export USE_CCACHE=1" >> /etc/profile.d/android
@@ -46,4 +55,5 @@ RUN chmod 755 /script/build.sh
 
 WORKDIR /android-repo
 
-CMD ["/usr/local/bin/dumb-init", "--", "/script/build.sh"]
+####CMD ["/usr/local/bin/dumb-init", "--", "/script/build.sh"]
+CMD tail -f /dev/null

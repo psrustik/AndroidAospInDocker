@@ -2,7 +2,7 @@
 
 prebuilts/misc/linux-x86/ccache/ccache -M 50G
 source build/envsetup.sh
-lunch aosp_flo-userdebug
+lunch p212-userdebug-64
 make installclean
 make clean
 time make -j3 
