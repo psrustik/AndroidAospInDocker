@@ -17,7 +17,7 @@ RUN apt-get update && \
     apt-get install -y bc bison bsdmainutils build-essential curl \
         flex g++-multilib gcc-multilib git gnupg gperf lib32ncurses5-dev \
         lib32readline-gplv2-dev lib32z1-dev libesd0-dev libncurses5-dev \
-        libsdl1.2-dev libwxgtk2.8-dev libxml2-utils lzop \
+        libsdl1.2-dev libwxgtk2.8-dev libxml2-utils lzop lunzip \
         pngcrush schedtool xsltproc zip zlib1g-dev software-properties-common
 
 

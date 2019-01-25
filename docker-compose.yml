@@ -4,5 +4,5 @@ services:
   androidrom:
     build: ./
     volumes:
-      - /home/rustik/aosp/905x/AndroidN_905x_2018_0213:/android-repo
+      - /home/rustik/aosp_amlogic/:/android-repo
       - /home/rustik/ccache:/ccache

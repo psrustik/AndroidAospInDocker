@@ -2,7 +2,7 @@
 
 prebuilts/misc/linux-x86/ccache/ccache -M 50G
 source build/envsetup.sh
-lunch p212-userdebug-64
+lunch p212-userdebug-32
 make installclean
 make clean
 time make -j3 
